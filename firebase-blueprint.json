@@ -1,0 +1,77 @@
+{
+  "entities": {
+    "UserProfile": {
+      "title": "User Profile",
+      "description": "User account information",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "displayName": { "type": "string" },
+        "photoURL": { "type": "string" },
+        "joinedAt": { "type": "number" }
+      },
+      "required": ["uid", "displayName", "joinedAt"]
+    },
+    "CommunityPost": {
+      "title": "Community Post",
+      "description": "A shared update in the community feed",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "userName": { "type": "string" },
+        "userPhoto": { "type": "string" },
+        "type": { "type": "string", "enum": ["sprint_completed", "habit_streak", "goal_achieved", "insight"] },
+        "content": { "type": "string" },
+        "timestamp": { "type": "number" },
+        "likes": { "type": "number" }
+      },
+      "required": ["userId", "userName", "type", "content", "timestamp"]
+    },
+    "ForgeState": {
+      "title": "Forge State",
+      "description": "User's application state (goals, habits, sprints, etc.)",
+      "type": "object",
+      "properties": {
+        "avatarState": { "type": "string", "enum": ["depleted", "aligning", "aligned"] },
+        "identityPoints": { "type": "number" },
+        "sprints": { "type": "array" },
+        "habits": { "type": "array" },
+        "monthlyHabits": { "type": "array" },
+        "goals": { "type": "array" },
+        "highlights": { "type": "array" },
+        "dailyPlan": { "type": "array" },
+        "lastIntervention": { "type": "number" }
+      },
+      "required": ["avatarState", "identityPoints", "sprints", "habits", "monthlyHabits", "goals", "highlights", "dailyPlan"]
+    },
+    "Friendship": {
+      "title": "Friendship",
+      "description": "A connection between two users",
+      "type": "object",
+      "properties": {
+        "users": { "type": "array", "items": { "type": "string" } },
+        "status": { "type": "string", "enum": ["pending", "accepted"] },
+        "timestamp": { "type": "number" }
+      },
+      "required": ["users", "status", "timestamp"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "UserProfile",
+      "description": "Private user profiles"
+    },
+    "/users/{userId}/data/state": {
+      "schema": "ForgeState",
+      "description": "User's private application state"
+    },
+    "/posts/{postId}": {
+      "schema": "CommunityPost",
+      "description": "Public community feed posts"
+    },
+    "/friendships/{friendshipId}": {
+      "schema": "Friendship",
+      "description": "User connections"
+    }
+  }
+}

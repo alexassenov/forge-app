@@ -1,0 +1,34 @@
+@import "tailwindcss";
+
+@theme {
+  --color-forge-bg: #0a0a0a;
+  --color-forge-ink: #ffffff;
+  --color-forge-accent: #f97316; /* Orange-500 */
+  --color-forge-muted: #404040;
+  --color-forge-border: #262626;
+  
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+}
+
+@layer base {
+  body {
+    @apply bg-forge-bg text-forge-ink font-mono selection:bg-forge-accent selection:text-forge-bg;
+  }
+}
+
+.forge-card {
+  @apply border border-forge-border bg-black/50 p-6 rounded-sm;
+}
+
+.forge-button {
+  @apply border border-forge-ink px-4 py-2 hover:bg-forge-ink hover:text-forge-bg transition-colors uppercase text-xs tracking-widest font-bold;
+}
+
+.forge-button-accent {
+  @apply border border-forge-accent text-forge-accent px-4 py-2 hover:bg-forge-accent hover:text-forge-bg transition-colors uppercase text-xs tracking-widest font-bold;
+}
+
+.glitch-text {
+  text-shadow: 2px 0 #ff0000, -2px 0 #00ff00;
+}
+
